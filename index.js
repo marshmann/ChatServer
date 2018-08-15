@@ -6,6 +6,7 @@ var io = require('socket.io')(http);
 
 app.use("/public", express.static('public')); 
 
+//The array containing the connected client's usernames
 var clientList = [];
 
 //Any connections to the base url or to the url/chat will have the same
