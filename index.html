@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="icon" href="/public/favicon.ico">
+    <title>Shitscord</title> 
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 14px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+      
+      textarea { width:100%; }
+    </style>
+  </head>
+  <body>
+    <textarea id="messages" rows = "49"></textarea>
+    <br>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      //$ is a shortcut to represent jQuery
+      //Therefore you could replace every instance of "jQuery" with "$" and
+      //it would be functionally the same
+      jQuery(function () {
+        var socket = io();
+        jQuery('form').submit(function(){
+          socket.emit('chat message', jQuery('#m').val());
+          jQuery('#m').val('');
+          return false;
+        });
+    
+        socket.on('chat message', function(msg){
+          var x = document.getElementById("messages");
+          oldtext = x.textContent;
+          x.innerHTML = oldtext +"\n"+ msg;
+          
+          var $textarea = $("#messages");
+          $textarea.scrollTop = $textarea.scrollHeight;
+         });
+      });
+    </script>   
+    
+  </body>
+</html>
