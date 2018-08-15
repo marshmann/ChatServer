@@ -1,5 +1,5 @@
 # ChatServer
-A simple to use and edit chat server and client.  
+A simple to use and edit chat server and client, utilizing node with express and socket.io.
 
 It goes without saying that server.js contains the server-side code.
 
