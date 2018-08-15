@@ -4,8 +4,6 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-//ssh -R crappychat:80:192.168.12.92:8080 serveo.net
-
 app.use("/public", express.static('public')); 
 
 var clientList = [];
