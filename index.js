@@ -52,8 +52,10 @@ io.on('connection', function(socket){
   
   //If someone disconnects, let the chat know
   socket.on('disconnect', function(){
-    io.emit('chat message', client + " has disconnected.");
+    if(client != "")
+      io.emit('chat message', client + " has disconnected.");
   });
+ 
 });
 
 //This is saying the server is listening to anyone trying to connect
