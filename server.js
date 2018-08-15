@@ -12,11 +12,11 @@ var clientList = [];
 //Any connections to the base url or to the url/chat will have the same
 //html page at the moment.
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/client.html');
 });
 
 app.get('/chat', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/client.html');
 });
 
 //Once someone new connects to this chat room...
