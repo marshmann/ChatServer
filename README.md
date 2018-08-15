@@ -1,9 +1,9 @@
 # ChatServer
 A simple to use and edit chat server and client.  
 
-index.js contains the server-side code, and index.html contains the client-side code (including CSS and JS).
+It goes without saying that server.js contains the server-side code, and client.html contains the client-side code (including it's CSS and JavaScript).
 
-Assuming you have Node.js installed, all you need to do is `node index.js` to start the server up.
+To start the server all you need to do is `node server.js`.
 
 I also recommend using another program to allow for external IPs to connect to your server. I personally used serveo.net for this.
 

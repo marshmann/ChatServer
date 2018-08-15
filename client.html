@@ -31,21 +31,21 @@
         border: none; 
         padding: 10px; 
       }     
-      
       /* The text area, where the messages appear */
-      textarea.disabled{
+      textarea.disabled {
         font-size: 15px;
         width: 100%; 
         height: 47vw;
-        color: #000;
-        
+        color: #000;        
         /* I don't want the text area to be greyed since it's technically     
-          "disabled" so I force it to appear as white.
+          "disabled" so I force it to appear as white.  Therefore I change the 
+          background-color to be white, even though it technically is defaulty
+          white.
           
-          The reason it's disabled is so the user can't type in it, which caused
+          The reason the text area is disabled in the first place 
+          is so the user can't type in it, which would cause
           the client side js to break */
-        background-color: #FFFFFF; 
-        
+        background-color: #FFFFFF;         
         border:1px solid #999999;
         margin:5px 0;
         padding:3px;        
@@ -89,9 +89,8 @@
           var x = document.getElementById("messages");
           x.textContent += ("\n" + msg);
           
-          //Attempts to make the textarea auto scroll down
-          //var $textarea = $("#messages");
-          //$textarea.scrollTop = $textarea.scrollHeight;
+          //Autoscroll down when messages appear
+          x.scrollTop = x.scrollHeight;          
          });
       });
     </script>
