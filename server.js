@@ -4,6 +4,12 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var path = require('path');
+
+//Link the public file to the server
+app.use(express.static(path.join(__dirname, 'public'))); 
+
+//Specific use of /public for the icon linking in the html.
 app.use("/public", express.static('public')); 
 
 //The array containing the connected client's usernames
@@ -12,15 +18,15 @@ var clientList = [];
 //Any connections to the base url or to the url/chat will have the same
 //html page at the moment.
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/client.html');
+  res.sendFile(__dirname + '/views/client.html');
 });
 
 app.get('/chat', function(req, res){
-  res.sendFile(__dirname + '/client.html');
+  res.sendFile(__dirname + '/views/client.html');
 });
 
 app.get('/game', function(req, res){
-  res.sendFile(__dirname + '/game.html');
+  res.sendFile(__dirname + '/views/game.html');
 });
 
 //Once someone new connects to this chat room...

@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Link the discord icon, which makes the tab icon appear -->
+    <link rel="icon" href="/public/favicon.ico">
+    <!-- External link to the client style sheet -->
+    <link rel="stylesheet" href="/css/client.css">
+    <title>Nickscord</title> 
+  </head>
+  <body>
+    <!-- The form that makes up the message box (textarea),
+      the message box, and the submit button -->
+    <form action="">
+      <textarea disabled class="disabled" id="messages" rows = "49">Welcome to the Server! Please enter a username and click submit!</textarea>
+      <input id="m" autocomplete="off" placeholder="Enter your message"/>
+      <button id="button">Submit</button>
+      <button onclick= "window.location.href='/game'" id="button">Let's Go Game!</button>
+    </form>
+    <!-- Link the general socket.io scrits and the jquery scripts -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>  
+    
+    <!-- External link to the client javascript code -->
+    <script src=/js/client.js></script>
+  </body>
+</html>
