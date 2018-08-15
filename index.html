@@ -3,49 +3,67 @@
   <head>
     <link rel="icon" href="/public/favicon.ico">
     <title>Nickscord</title> 
-    <style>
+    <!--Style should really be in a seperate document, but I'm lazy-->
+    <style> /* CSS */
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 14px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-      
-      textarea { width:100%; }
+      form { 
+        background: #000; 
+        padding: 3px; 
+        position: fixed; 
+        bottom: 0; 
+        width: 100%; 
+      }
+      form input { 
+        border: 0; 
+        padding: 14px; 
+        width: 90%; 
+        margin-right: .5%; 
+      }
+      form button { 
+        width: 9%; 
+         background: rgb(130, 224, 255); 
+         border: none; 
+         padding: 10px; 
+      }     
+      textarea.disabled{
+        width: 100%;
+        color: #000;
+        background-color: #FFFFFF;
+      }
     </style>
   </head>
   <body>
-    <textarea id="messages" rows = "49"></textarea>
+    <textarea disabled class="disabled" id="messages" rows = "49">Welcome to the Server! Please enter a username and click submit!</textarea>
     <br>
     <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
+      <input id="m" autocomplete="off" /><button id="button">Submit</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script> 
+    <!--Scripts should also be in a seperate file, but I'm still lazy :D-->
+    <script> //JS
       //$ is a shortcut to represent jQuery
       //Therefore you could replace every instance of "jQuery" with "$" and
       //it would be functionally the same
       jQuery(function () {
-        var socket = io();
-        jQuery('form').submit(function(){
-          socket.emit('chat message', jQuery('#m').val());
-          jQuery('#m').val('');
+        var socket = io(); //declare the socket connects to the host 
+        $('form').submit(function(){ //when someone hits the submit button
+          socket.emit('chat message', $('#m').val()); //send a message event
+          $('#m').val(''); //set the input box to be empty
           return false;
         });
     
+        //When the socket recieves a chat message
         socket.on('chat message', function(msg){
+          //use DOM to append the message to the current list of messages
           var x = document.getElementById("messages");
-          oldtext = x.textContent;
-          x.innerHTML = oldtext +"\n"+ msg;
+          x.textContent += ("\n" + msg);
           
-          var $textarea = $("#messages");
-          $textarea.scrollTop = $textarea.scrollHeight;
+          //var $textarea = $("#messages");
+          //$textarea.scrollTop = $textarea.scrollHeight;
          });
       });
-    </script>   
-    
+    </script>
   </body>
 </html>
