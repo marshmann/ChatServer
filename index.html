@@ -1,12 +1,14 @@
 <!doctype html>
 <html>
   <head>
+    <!--Link the discord icon, which makes the tab icon appear-->
     <link rel="icon" href="/public/favicon.ico">
     <title>Nickscord</title> 
     <!--Style should really be in a seperate document, but I'm lazy-->
     <style> /* CSS */
+      /* Everything */
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { height: 100%; }
+      /* Both the message box and the submit button */
       form { 
         background: #000; 
         padding: 3px; 
@@ -15,23 +17,35 @@
         width: 100%; 
         height: 100%;
       }
+      /* The message box */
       form input { 
         border: 0; 
         padding: 14px; 
         width: 90%; 
         margin-right: .5%; 
       }
+      /* The submit button */
       form button { 
         width: 9%; 
-         background: rgb(130, 224, 255); 
-         border: none; 
-         padding: 10px; 
+        background: rgb(130, 255, 130); /* Green button is best button */
+        border: none; 
+        padding: 10px; 
       }     
+      
+      /* The text area, where the messages appear */
       textarea.disabled{
+        font-size: 15px;
         width: 100%; 
         height: 47vw;
         color: #000;
-        background-color: #FFFFFF;
+        
+        /* I don't want the text area to be greyed since it's technically     
+          "disabled" so I force it to appear as white.
+          
+          The reason it's disabled is so the user can't type in it, which caused
+          the client side js to break */
+        background-color: #FFFFFF; 
+        
         border:1px solid #999999;
         margin:5px 0;
         padding:3px;        
@@ -40,22 +54,32 @@
     </style>
   </head>
   <body>
+    <!-- The form that makes up the message box (textarea),
+      the message box, and the submit button -->
     <form action="">
-        <textarea disabled class="disabled" id="messages" rows = "49">Welcome to the Server! Please enter a username and click submit!</textarea>
-      <input id="m" autocomplete="off" placeholder="Enter your message"/><button id="button">Submit</button>
+      <textarea disabled class="disabled" id="messages" rows = "49">Welcome to the Server! Please enter a username and click submit!</textarea>
+      <input id="m" autocomplete="off" placeholder="Enter your message"/>
+      <button id="button">Submit</button>
     </form>
+    
+    <!-- Link the general socket.io scrits and the jquery scripts -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script> 
-    <!--Scripts should also be in a seperate file, but I'm still lazy :D-->
-    <script> //JS
-      //$ is a shortcut to represent jQuery
-      //Therefore you could replace every instance of "jQuery" with "$" and
-      //it would be functionally the same
+    
+    <!--The JavaScript should also be in a seperate file, but I'm still lazy :D-->
+    <script>
+      /*Some notes about jQuery:
+        $ is a shortcut to represent jQuery
+        Therefore you could replace every instance of "jQuery" with "$" and
+        it would be functionally the same */
+        
+      //Start the jQuery functions
       jQuery(function () {
         var socket = io(); //declare the socket connects to the host 
-        $('form').submit(function(){ //when someone hits the submit button
-          socket.emit('chat message', $('#m').val()); //send a message event
-          $('#m').val(''); //set the input box to be empty
+        jQuery('form').submit(function(){ //when someone hits the submit button
+          socket.emit('chat message', jQuery('#m').val()); //send a message event
+          jQuery('#m').val(''); //set the input box to be empty
+          
           return false;
         });
     
@@ -65,6 +89,7 @@
           var x = document.getElementById("messages");
           x.textContent += ("\n" + msg);
           
+          //Attempts to make the textarea auto scroll down
           //var $textarea = $("#messages");
           //$textarea.scrollTop = $textarea.scrollHeight;
          });
