@@ -17,6 +17,6 @@ npm install --save socket.io
 
 To start the server all you need to do is `node server.js`.
 
-I also recommend using another program to allow for external IPs to connect to your server. I personally used serveo.net for this.
+I also recommend using another program to allow for external IPs to connect to your server. I personally used serveo.net for this, since you don't need to download anything for it.
 
 `ssh -R <a website name>:80:<your ip>:8080 serveo.net`
