@@ -19,6 +19,10 @@ app.get('/chat', function(req, res){
   res.sendFile(__dirname + '/client.html');
 });
 
+app.get('/game', function(req, res){
+  res.sendFile(__dirname + '/game.html');
+});
+
 //Once someone new connects to this chat room...
 io.on('connection', function(socket){
   let client = ""; //initalize their client name
