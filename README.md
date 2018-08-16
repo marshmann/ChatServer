@@ -3,7 +3,7 @@ A simple to use and edit chat server and client, utilizing node with express and
 
 It goes without saying that server.js contains the server-side code.
 
-The views files contains the html code for each of the pages.  The client.html file contains the client-side code for the chatbox, and game.html is a **NYI** html file that will contain a unity-based project.
+The views files contains the html code for each of the pages.  The client.html file contains the client-side code for the chatbox, and game.html is a html file that currently contains a WebGL pong game, developed by Nikhil Suresh (see http://buildnewgames.com/webgl-threejs/ for the tutorial on how to make it).  The end goal is to replace that game with one developed in Unity.
 
 The public file contains the files that are linked to the client-based HTML code (namely, CSS and JS files).
 

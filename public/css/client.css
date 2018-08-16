@@ -26,7 +26,17 @@ form button {
   background: rgb(130, 255, 130); /* Green button is best button */
   border: none; 
   padding: 10px; 
-}     
+} 
+/* When pressed the button will create a pressed effect */
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+/* When hovering over a button, it'll appear a different color */
+button:hover {
+  background-color: rgb(55, 255, 55);
+}    
 /* The text area, where the messages appear */
 textarea.disabled {
   font-size: 15px;

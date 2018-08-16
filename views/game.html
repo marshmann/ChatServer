@@ -3,9 +3,27 @@
   <head>
     <!--Link the discord icon, which makes the tab icon appear-->
     <link rel="icon" href="/public/favicon.ico">
-    <title>Nickscord</title> 
-  </head>
-  <body>
-  <h1>COMING SOON ;]</h1>
-  </body>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="/css/game.css">
+    <title>Nickscord</title>
+	</head>
+	<!-- When the page is loaded, it'll call the "setup" function in game.js -->
+	<body onload='setup();'>
+		<div id='gameCanvas'></div>		
+		<script src='/js/three.min.js'></script>
+		<script src='/js/keyboard.js'></script>
+		<script src='/js/game.js'></script>
+		<div id='scoreboard'>
+			<h1 id='scores'>0-0</h1>
+			<h1 id='title'>3D PONG</h1>
+			<h2 id='winnerBoard'>First to 3 wins!</h2>
+			<h3>A - move left
+			<br>D - move right</h3>
+		</div>
+	</body>
+	<footer>
+		<div id="button">
+	    <button onclick= "window.location.href='/chat'">Return to chat!</button>
+	  </div>
+	</footer>
 </html>
