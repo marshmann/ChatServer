@@ -21,7 +21,7 @@ form input {
   margin-right: .5%; 
 }
 /* The submit button */
-form button { 
+button { 
   width: 9%; 
   background: rgb(130, 255, 130); /* Green button is best button */
   border: none; 
@@ -57,4 +57,11 @@ textarea.disabled {
   margin:5px 0;
   padding:3px;        
   line-height: 1.5rem;
+}
+/* specifications for the game button, make sure it's above the form */
+.foot {
+  position: absolute;
+  left: 90%;
+  bottom: 3.1%;
+  overflow: hidden;
 }

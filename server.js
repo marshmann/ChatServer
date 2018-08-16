@@ -33,6 +33,7 @@ app.get('/game', function(req, res){
 io.on('connection', function(socket){
   let client = ""; //initalize their client name
   let firstMessage = true; 
+  let disconnectMsg = "";
   
   //Let the person who connected know who else is in the chat room
   if(clientList.length == 0)
@@ -42,13 +43,15 @@ io.on('connection', function(socket){
   
   //When a client tries to send a message
   socket.on('chat message', function(msg){
+    if(msg == "") { /*do nothing*/ } //ignore empty messages
     //if that person is new to the chat room, we need to get them a name!
     //The first message they send will be their name.
     //Also, we'll make sure everyone has a unique name.
-    if(firstMessage && !clientList.includes(msg)){
+    else if(firstMessage && !clientList.includes(msg)){
       client = msg; //set the client name
       clientList.push(client); //add it to the list of clients
       io.emit('chat message', client + " has connected."); //let everyone know
+      disconnectMsg = client + " has disconnected"; //set the default disconnect message
       firstMessage = false;
     }
     //if the name is taken, notify the client (and only him)
@@ -60,10 +63,16 @@ io.on('connection', function(socket){
       io.emit('chat message', client + ": " + msg);
   });
   
+  socket.on('gameplay', function(){
+    disconnectMsg = client + " has left to play pong!"; //change the disconnect message!
+    socket.disconnect();
+  });
+  
   //If someone disconnects, let the chat know
   socket.on('disconnect', function(){
-    if(client != "")
-      io.emit('chat message', client + " has disconnected.");
+    io.emit('chat message', disconnectMsg); 
+    let index = clientList.indexOf(client);   
+    if (index > -1) clientList.splice(index, 1);
   });
  
 });
