@@ -3,7 +3,6 @@ var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
 var path = require('path');
 
 //Link the public file to the server
@@ -15,8 +14,7 @@ app.use("/public", express.static('public'));
 //The array containing the connected client's usernames
 var clientList = [];
 
-//Any connections to the base url or to the url/chat will have the same
-//html page at the moment.
+//Any connections to the base url or to the url/chat will redirect to the chat page
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/views/client.html');
 });
@@ -25,6 +23,7 @@ app.get('/chat', function(req, res){
   res.sendFile(__dirname + '/views/client.html');
 });
 
+//redirect anyone who connects to the webpage with /game in the path to the game page
 app.get('/game', function(req, res){
   res.sendFile(__dirname + '/views/game.html');
 });
@@ -36,10 +35,8 @@ io.on('connection', function(socket){
   let disconnectMsg = "";
   
   //Let the person who connected know who else is in the chat room
-  if(clientList.length == 0)
-    socket.emit('chat message', "You are the first to connect!");
-  else
-    socket.emit('chat message', "You have connected with: " + clientList);
+  if(clientList.length == 0) socket.emit('chat message', "You are the first to connect!");
+  else socket.emit('chat message', "You have connected with: " + clientList);
   
   //When a client tries to send a message
   socket.on('chat message', function(msg){
@@ -63,6 +60,7 @@ io.on('connection', function(socket){
       io.emit('chat message', client + ": " + msg);
   });
   
+  //make sure the user actually disconnects when they click the "lets go game" button
   socket.on('gameplay', function(){
     disconnectMsg = client + " has left to play pong!"; //change the disconnect message!
     socket.disconnect();
@@ -70,9 +68,9 @@ io.on('connection', function(socket){
   
   //If someone disconnects, let the chat know
   socket.on('disconnect', function(){
-    io.emit('chat message', disconnectMsg); 
-    let index = clientList.indexOf(client);   
-    if (index > -1) clientList.splice(index, 1);
+    io.emit('chat message', disconnectMsg);
+    let index = clientList.indexOf(client); //get the index of their username   
+    if (index > -1) clientList.splice(index, 1); //remove it from the array
   });
  
 });

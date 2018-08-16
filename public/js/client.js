@@ -14,15 +14,16 @@ jQuery(function(){
   //When the "let's go game" button is pressed
   jQuery('#game').click(function(){
     socket.emit('gameplay', "hi");
-    window.location.href='/game'
+    window.location.href='/game';
     return false;
   });
   
   //When the socket recieves a chat message
   socket.on('chat message', function(msg){
     //use DOM to append the message to the current list of messages
-    var x = document.getElementById("messages");
-    x.textContent += ("\n" + msg);
+    let x = document.getElementById("messages");
+    let d = new Date().toLocaleTimeString();
+    x.textContent += ("\n[" + d + "] " + msg);
        
     //Autoscroll down when messages appear
     x.scrollTop = x.scrollHeight;          
