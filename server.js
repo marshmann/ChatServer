@@ -39,15 +39,25 @@ app.get('/game', function(req, res){
   res.sendFile(__dirname + '/views/game.html');
 });
 
-//Someone connected to the server!
+//Someone connected to the server, thus creating their own unique socket!
+//A socket is an object that allows the client to communicate with the server.
+//In short, one can, at a base-level, think of a socket as a client who's connected to the server.
 io.on('connection', function(socket){
   let client = ""; //initialize client name
   let firstMessage = true; //the first message will be set as the client's username
   
   /*
-    Quick tutorial on how sessions work:
-      You create and store attributes to the socket's session attribute: socket.handshake.session
-      Each attribute is defaultly valued as "undefined"
+    Quick tutorial on how these sessions work:
+      In theory:
+      A session is simply utilized to store some data in the user's browser, which allows for some
+      convience.  For this project in particular, it means the client doesn't need to reenter
+      a username everytime he/she wants to go to a different webpage on our website.  It also
+      allows us to have some custom messages for users who have been on the website before and for
+      new users who haven't.
+      
+      Technial:
+      You create and attach attributes to the socket's session object: "socket.handshake.session"
+      Each attribute is defaultly valued as "undefined", and you can crete them on-the-go.
       These attributes are stored in cookies in the browser.
       Thus, if the attributes aren't "undefined" when we access them, then we can assume the user
       is someone who's already opened the webpage in their browser before.
@@ -126,14 +136,15 @@ io.on('connection', function(socket){
       let index = clientList.indexOf(client); //get the index of their username   
       if (index > -1) clientList.splice(index, 1); //remove it from the client list
        
-      if(disconnectMsg){ //if the user actually has disconnected
-        io.emit('chat message', client + " has disconnected.");
+      if(disconnectMsg) { //if the user actually has disconnected
+        io.emit('chat message', client + " has disconnected."); //tell the server
         //set the session attribute to represent that they weren't swapping pages
         socket.handshake.session.swapping = false; 
       }
-      else { //the user is swapping between the server's webpages
-        socket.handshake.session.swapping = true; //set the swapping attribute to true
-      }
+      //else, the user is swapping between the server's webpages
+      else socket.handshake.session.swapping = true; //set the swapping attribute to true
+      
+      //Regardless of the reason for the disconnect, we will do this:
       socket.handshake.session.save(); //save the session
     }
   });
