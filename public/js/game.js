@@ -17,11 +17,11 @@ var fieldWidth = 400, fieldHeight = 200;
 
 // paddle variables
 var paddleWidth, paddleHeight, paddleDepth, paddleQuality;
-var paddle1DirY = 0, paddle2DirY = 0, paddleSpeed = 3;
+var paddle1DirY = 0, paddle2DirY = 0, paddleSpeed = 4;
 
 // ball variables
 var ball, paddle1, paddle2;
-var ballDirX = 1, ballDirY = 1, ballSpeed = 2;
+var ballDirX = 1, ballDirY = 1, ballSpeed = 3;
 
 // game-related variables
 var score1 = 0, score2 = 0;
@@ -29,7 +29,7 @@ var score1 = 0, score2 = 0;
 var maxScore = 3;
 
 // set opponent reflexes (0 - easiest, 1 - hardest)
-var difficulty = 0.2;
+var difficulty = 0.18;
 
 // ------------------------------------- //
 // ------- GAME FUNCTIONS -------------- //
