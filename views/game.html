@@ -1,3 +1,7 @@
+<!-- 
+  The game half of the body was developed by Nikhil Suresh and adapted by Nicholas Marshman
+  The chat half was by Nicholas Marshman
+-->
 <!doctype html>
 <html>
   <head>
@@ -28,9 +32,10 @@
         <script src="https://code.jquery.com/jquery-1.11.1.js"></script>  
 		    <script src ='/js/client.js'></script>
 		    <form action="">
-          <textarea disabled class="disabled" id="messages" rows="49">Welcome to the Server! Please enter a username and click submit!</textarea><br>
+          <textarea disabled class="disabled" id="messages" rows="49">Welcome to the Server!
+If you're new, enter a username and click submit!</textarea><br>
           <div class="submitArea">
-          <input id="m" autocomplete="off" placeholder="Enter your message"/>
+          <input id="mes" autocomplete="off" placeholder="Enter your message"/>
           <button id="submit">Submit</button>
         </form>
 		  </td>
@@ -38,7 +43,7 @@
 	</body>
 	<footer>
 		<div id="button">
-	    <button onclick= "window.location.href='/chat'">Return to the main chat!</button>
+	    <button id="chatButton">Return to chat!</button>
 	  </div>
 	</footer>
 </html>

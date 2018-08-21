@@ -1,21 +1,30 @@
+//Author: Nicholas Marshman
+
 /*Some notes about jQuery:
   $ is a shortcut to represent jQuery
   Therefore you could replace every instance of "jQuery" with "$" and
   it would be functionally the same */
-var socket = io();
 jQuery(function(){
-   //declare the socket connects to the host 
+  var socket = io(); //declare the socket connects to the host 
   jQuery('form').submit(function(){ //when someone hits the submit button
-    socket.emit('chat message', jQuery('#m').val()); //send a message event
-    jQuery('#m').val(''); //set the input box to be empty
+    socket.emit('chat message', jQuery('#mes').val()); //send a message event
+    jQuery('#mes').val(''); //set the input box to be empty
           
     return false;
   });
   
   //When the "let's go game" button is pressed
-  jQuery('#game').click(function(){
-    socket.emit('gameplay', "hi");
+  jQuery('#gameButton').click(function(){
+    socket.emit('pageSwap', "");
     window.location.href='/game';
+    
+    return false;
+  });
+  
+  //When the "return to chat" button is pressed
+  jQuery('#chatButton').click(function(){
+    socket.emit('pageSwap', "");
+    window.location.href='/chat';
     
     return false;
   });

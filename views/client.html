@@ -1,3 +1,4 @@
+<!-- Author: Nicholas Marshman -->
 <!doctype html>
 <html>
   <head>
@@ -11,9 +12,11 @@
     <!-- The form that makes up the message box (textarea),
       the message box, and the submit button -->
     <form action="">
-      <textarea disabled class="disabled" id="messages" rows = "49">Welcome to the Server! Please enter a username and click submit!</textarea>
-      <input id="m" autocomplete="off" placeholder="Enter your message"/>
+      <textarea disabled class="disabled" id="messages" rows = "49">Welcome to the Server!
+If you're new, enter a username and click submit!</textarea><br>
+      <input id="mes" autocomplete="off" placeholder="Enter your message"/>
       <button id="button">Submit</button>
+    <button id="gameButton" class="foot">Let's Go Game!</button> 
     </form>
     <!-- Link the general socket.io scrits and the jquery scripts -->
     <script src="/socket.io/socket.io.js"></script>
@@ -22,8 +25,5 @@
     <!-- External link to the client javascript code -->
     <script src=/js/client.js></script>
   </body>  
-  <footer>
-    <button id="game" class="foot">Let's Go Game!</button>  
-  </footer>
 </html>
 

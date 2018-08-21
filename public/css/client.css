@@ -1,3 +1,4 @@
+/* Author: Nicholas Marshman */
 /* Everything */
 * { 
   margin: 0; 
@@ -57,11 +58,4 @@ textarea.disabled {
   margin:5px 0;
   padding:3px;        
   line-height: 1.5rem;
-}
-/* specifications for the game button, make sure it's above the form */
-.foot {
-  position: absolute;
-  left: 90%;
-  bottom: 3.1%;
-  overflow: hidden;
 }

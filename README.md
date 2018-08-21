@@ -12,6 +12,8 @@ The node_modules file, and the json files in the main dir are what was generated
 npm init
 npm install --save express
 npm install --save socket.io 
+npm install express-session
+npm install express-socket.io-session
 ```
 
 
