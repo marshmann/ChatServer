@@ -9,21 +9,36 @@
 	</head>
 	<!-- When the page is loaded, it'll call the "setup" function in game.js -->
 	<body onload='setup();'>
-		<div id='gameCanvas'></div>		
-		<script src='/js/three.min.js'></script>
-		<script src='/js/keyboard.js'></script>
-		<script src='/js/game.js'></script>
-		<div id='scoreboard'>
-			<h1 id='scores'>0-0</h1>
-			<h1 id='title'>3D PONG</h1>
-			<h2 id='winnerBoard'>First to 3 wins!</h2>
-			<h3>A - move left
-			<br>D - move right</h3>
-		</div>
+	  <table id = 'total'>
+	    <td id = 'gameSide'>
+		    <div id='gameCanvas'></div>		
+		    <script src='/js/three.min.js'></script>
+		    <script src='/js/keyboard.js'></script>
+		    <script src='/js/game.js'></script>
+		    <div id='scoreboard'>
+		      <h1 id='scores'>0-0</h1>
+		      <h1 id='title'>3D PONG</h1>
+		      <h2 id='winnerBoard'>First to 3 wins!</h2>
+			      <h3>A - move left
+			      <br>D - move right</h3>
+		    </div>
+		  </td>
+		  <td id = 'chat'>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>  
+		    <script src ='/js/client.js'></script>
+		    <form action="">
+          <textarea disabled class="disabled" id="messages" rows="49">Welcome to the Server! Please enter a username and click submit!</textarea><br>
+          <div class="submitArea">
+          <input id="m" autocomplete="off" placeholder="Enter your message"/>
+          <button id="submit">Submit</button>
+        </form>
+		  </td>
+		</table>
 	</body>
 	<footer>
 		<div id="button">
-	    <button onclick= "window.location.href='/chat'">Return to chat!</button>
+	    <button onclick= "window.location.href='/chat'">Return to the main chat!</button>
 	  </div>
 	</footer>
 </html>

@@ -1,16 +1,25 @@
 //We use Node, Express, and Socket.Io to make this.
 var express = require('express');
+var session = require('express-session')({
+    secret: "my-secret",
+    resave: true,
+    saveUninitialized: true
+  });
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
+var sose = require('express-socket.io-session');
 
 //Link the public file to the server
 app.use(express.static(path.join(__dirname, 'public'))); 
-
 //Specific use of /public for the icon linking in the html.
 app.use("/public", express.static('public')); 
 
+//Specify we are using session-scope
+app.use(session);
+
+io.use(sose(session, {autoSave:true}));
 //The array containing the connected client's usernames
 var clientList = [];
 
@@ -30,8 +39,14 @@ app.get('/game', function(req, res){
 
 //Once someone new connects to this chat room...
 io.on('connection', function(socket){
-  let client = ""; //initalize their client name
-  let firstMessage = true; 
+  let client = ""; //initialize client name
+  let firstMessage = true; //the first message is the username the user wants
+  //check to see if the user has been in the session before
+  if(socket.handshake.session.client != undefined) {
+    client = socket.handshake.session.client;
+    socket.emit('chat message', "Welcome back " + client);
+    firstMessage = false;
+  }
   let disconnectMsg = "";
   
   //Let the person who connected know who else is in the chat room
@@ -45,7 +60,9 @@ io.on('connection', function(socket){
     //The first message they send will be their name.
     //Also, we'll make sure everyone has a unique name.
     else if(firstMessage && !clientList.includes(msg)){
-      client = msg; //set the client name
+      socket.handshake.session.client = msg; //store the client name
+      socket.handshake.session.save(); //save
+      client = msg; //set the client name locally as well
       clientList.push(client); //add it to the list of clients
       io.emit('chat message', client + " has connected."); //let everyone know
       disconnectMsg = client + " has disconnected"; //set the default disconnect message
@@ -68,9 +85,11 @@ io.on('connection', function(socket){
   
   //If someone disconnects, let the chat know
   socket.on('disconnect', function(){
-    io.emit('chat message', disconnectMsg);
-    let index = clientList.indexOf(client); //get the index of their username   
-    if (index > -1) clientList.splice(index, 1); //remove it from the array
+    if(client != ""){
+      io.emit('chat message', disconnectMsg);
+      let index = clientList.indexOf(client); //get the index of their username   
+      if (index > -1) clientList.splice(index, 1); //remove it from the array
+    }
   });
  
 });
