@@ -45,7 +45,8 @@ app.get('/game', function(req, res){
 io.on('connection', function(socket){
   let client = ""; //initialize client name
   let firstMessage = true; //the first message will be set as the client's username
-  
+  let disconnectMsg = true; //initalize that we should display a disconnect message
+    
   /*
     Quick tutorial on how these sessions work:
       In theory:
@@ -81,7 +82,6 @@ io.on('connection', function(socket){
     //we need to set it to false to not override the old user's name.
     firstMessage = false;
   }
-  let disconnectMsg = true; //initalize that we should display a disconnect message
   
   //Let the person who connected know who else is in the chat room
     //Unlike io.emit, socket.emit will send a message to just the client, not the whole chat-room
